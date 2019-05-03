@@ -196,8 +196,9 @@
 		end
 
 		local toolset = m.getcompiler(cfg)
-		local cxxflags = table.concat(table.join(toolset.getcxxflags(cfg), cfg.buildoptions), ";")
-		local cflags   = table.concat(table.join(toolset.getcflags(cfg), cfg.buildoptions), ";")
+		local forceincludes = toolset.getforceincludes(cfg)
+		local cxxflags = table.concat(table.join(toolset.getcxxflags(cfg), forceincludes, cfg.buildoptions), ";")
+		local cflags   = table.concat(table.join(toolset.getcflags(cfg), forceincludes, cfg.buildoptions), ";")
 		local asmflags = ""
 		local pch      = ""
 
@@ -317,8 +318,7 @@
 			_p(3, '<PreBuild>')
 			local commands = os.translateCommandsAndPaths(cfg.prebuildcommands, cfg.project.basedir, cfg.project.location)
 			for _, command in ipairs(commands) do
-				_x(4, '<Command Enabled="yes">%s</Command>',
-				p.esc(command))
+				_x(4, '<Command Enabled="yes">%s</Command>', command)
 			end
 			_p(3, '</PreBuild>')
 		end
@@ -329,8 +329,7 @@
 			_p(3, '<PostBuild>')
 			local commands = os.translateCommandsAndPaths(cfg.postbuildcommands, cfg.project.basedir, cfg.project.location)
 			for _, command in ipairs(commands) do
-				_x(4, '<Command Enabled="yes">%s</Command>',
-				p.esc(command))
+				_x(4, '<Command Enabled="yes">%s</Command>', command)
 			end
 			_p(3, '</PostBuild>')
 		end
