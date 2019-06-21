@@ -25,6 +25,7 @@
 	vstudio.vs200x_architectures =
 	{
 		win32   = "x86",
+		win64	= "x64",
 		x86     = "x86",
 		x86_64  = "x64",
 		ARM     = "ARM",
